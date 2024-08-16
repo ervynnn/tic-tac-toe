@@ -70,14 +70,14 @@ html, body {
 
 header, footer{
     width: 100%;
-    height: 7vw;
+    height: 8vw;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 header{
-    height: 6vw;
+    height: 6.5vw;
 }
 
 header div, footer div{
@@ -130,7 +130,7 @@ footer h1, header h1{
 }
 
 footer p, header p{
-    font-size: 1vw;
+    font-size: 0.8vw;
 }
 
 .player-info{
