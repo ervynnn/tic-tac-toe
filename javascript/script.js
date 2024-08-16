@@ -42,11 +42,11 @@ function handleClick(event){
         if(win == false && occupied < 9){
             if(occupied %2 != 0){
             divHeader.style.border = '0rem solid rgba(252, 163, 17, 0.8)';
-            divHeader.style.borderWidth = '0 0.1rem 0.3rem 0.1rem';
+            divHeader.style.borderWidth = '0 0.1vw 0.3vw 0.1vw';
             divFooter.style.border = 0;
             }else{
                 divFooter.style.border = '0.3rem solid rgba(255, 255, 255, 0.8)';
-                divFooter.style.borderWidth = '0.3rem 0.1rem 0 0.1rem';
+                divFooter.style.borderWidth = '0.3vw 0.1vw 0 0.1vw';
                 divHeader.style.border = 0;
             }
         }else if(occupied == 9){
