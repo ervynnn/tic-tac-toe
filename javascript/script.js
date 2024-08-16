@@ -2,6 +2,8 @@ const boxTTT = document.querySelectorAll('td');
 const row = document.querySelectorAll('tr');
 const divHeader = document.querySelector('header .div-player-info');
 const divFooter = document.querySelector('footer .div-player-info');
+const player2Score = document.querySelector('header .div-player-info .score p');
+const player1Score = document.querySelector('footer .div-player-info .score p');
 
 // COUNT OF ALL THE BOX
 const count = boxTTT.length;
@@ -61,8 +63,7 @@ function checker(){
             if( spanTD[i][0].textContent != "" && 
                 spanTD[i][0].textContent === spanTD[i][1].textContent && 
                 spanTD[i][1].textContent === spanTD[i][2].textContent){
-                removeClicks();
-                win = true;
+                removeClicks(spanTD[i][0]);
             }
         }
     }
@@ -72,8 +73,7 @@ function checker(){
             if( spanTD[0][i].textContent != "" &&
                 spanTD[0][i].textContent === spanTD[1][i].textContent && 
                 spanTD[1][i].textContent === spanTD[2][i].textContent){
-                removeClicks();
-                win = true;
+                removeClicks(spanTD[0][i]);
             }
     }
 
@@ -81,22 +81,26 @@ function checker(){
     if( spanTD[0][0].textContent != "" &&
         spanTD[0][0].textContent === spanTD[1][1].textContent && 
         spanTD[1][1].textContent === spanTD[2][2].textContent){
-        removeClicks();
-        win = true;
+        removeClicks(spanTD[0][0]);
     }
     
     if( spanTD[0][2].textContent != "" &&
         spanTD[0][2].textContent === spanTD[1][1].textContent && 
         spanTD[1][1].textContent === spanTD[2][0].textContent){
-        removeClicks();
-        win = true;
+        removeClicks(spanTD[0][2]);
     }
     
     
 }
 
 // REMOVING CLICKS AFTER SOMEONE HAS ALREADY WON
-function removeClicks(){
+function removeClicks(winner){
+    win = true;
+    if(winner.textContent === 'trip_origin'){
+        player2Score.textContent++;
+    }else{
+        player1Score.textContent++;
+    }
     boxTTT.forEach(td => {
         td.removeEventListener('click', handleClick);
         td.classList.add('selected');
