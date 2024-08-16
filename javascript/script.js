@@ -6,6 +6,7 @@ const divFooter = document.querySelector('footer .div-player-info');
 // COUNT OF ALL THE BOX
 const count = boxTTT.length;
 var occupied = 0;
+var win = false;
 
 // EVENT LISTENER FOR EVERY BOX
 boxTTT.forEach(td => {
@@ -28,20 +29,23 @@ function handleClick(event){
         if(occupied % 2 != 0){
             span.textContent = 'close';
             span.style.color = 'rgb(255, 255, 255)';
-            divHeader.style.border = '0rem solid rgba(252, 163, 17, 0.8)';
-            divHeader.style.borderWidth = '0 0.1rem 0.3rem 0.1rem';
-            divFooter.style.border = 0;
         }else{
             span.textContent = 'trip_origin';
             span.style.color = 'rgb(252, 163, 17)';
-            divFooter.style.border = '0.3rem solid rgba(255, 255, 255, 0.8)';
-            divFooter.style.borderWidth = '0.3rem 0.1rem 0 0.1rem';
-            divHeader.style.border = 0;
         }
         td.removeEventListener('mouseenter', onMouseEnter);
         td.removeEventListener('mouseleave', onMouseLeave);
         td.classList.add('selected');
         checker();
+        if(occupied %2 != 0 && win == false){
+            divHeader.style.border = '0rem solid rgba(252, 163, 17, 0.8)';
+            divHeader.style.borderWidth = '0 0.1rem 0.3rem 0.1rem';
+            divFooter.style.border = 0;
+        }else{
+            divFooter.style.border = '0.3rem solid rgba(255, 255, 255, 0.8)';
+            divFooter.style.borderWidth = '0.3rem 0.1rem 0 0.1rem';
+            divHeader.style.border = 0;
+        }
     }
 }
 
@@ -50,6 +54,7 @@ function checker(){
 
     let spanTD = [];
 
+    // CHECKING HORIZONTAL
     for (let i = 0; i < row.length; i++) {
         spanTD[i] = row[i].querySelectorAll('td span');
         if (spanTD[i].length >= 3) {
@@ -57,28 +62,34 @@ function checker(){
                 spanTD[i][0].textContent === spanTD[i][1].textContent && 
                 spanTD[i][1].textContent === spanTD[i][2].textContent){
                 removeClicks();
+                win = true;
             }
         }
     }
     
+    // CHECKING VERTICAL
     for (let i = 0; i < row.length; i++) {
             if( spanTD[0][i].textContent != "" &&
                 spanTD[0][i].textContent === spanTD[1][i].textContent && 
                 spanTD[1][i].textContent === spanTD[2][i].textContent){
                 removeClicks();
+                win = true;
             }
     }
 
+    // CHECKING DIAGONALS
     if( spanTD[0][0].textContent != "" &&
         spanTD[0][0].textContent === spanTD[1][1].textContent && 
         spanTD[1][1].textContent === spanTD[2][2].textContent){
         removeClicks();
+        win = true;
     }
     
     if( spanTD[0][2].textContent != "" &&
         spanTD[0][2].textContent === spanTD[1][1].textContent && 
         spanTD[1][1].textContent === spanTD[2][0].textContent){
         removeClicks();
+        win = true;
     }
     
     
@@ -89,6 +100,8 @@ function removeClicks(){
     boxTTT.forEach(td => {
         td.removeEventListener('click', handleClick);
         td.classList.add('selected');
+        td.removeEventListener('mouseenter', onMouseEnter);
+        td.removeEventListener('mouseleave', onMouseLeave);
     });
 }
 
@@ -109,7 +122,7 @@ function onMouseEnter(event){
 // WHENEVER THE MOUSE IS HOVER OFF THE TIC TAC TOE GAME
 function onMouseLeave(event) {
     var td = event.currentTarget;
-    
+
     span = td.querySelector('span');
     span.textContent = '';
 }
